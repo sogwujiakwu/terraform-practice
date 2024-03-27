@@ -1,3 +1,17 @@
+/* terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "5.31.0"
+    }
+  }
+}
+*/
+provider "aws" {
+  # Configuration options
+  region = "us-east-1"
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -15,9 +29,11 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "web" {
-  count 	= 2
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
+  count                  = 2
+  ami                    = data.aws_ami.ubuntu.id
+  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+  key_name               = aws_key_pair.public_ssh_key.key_name
+  instance_type          = "t3.micro"
 
   tags = {
     Name = "WebServer-${count.index}"
