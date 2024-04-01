@@ -100,3 +100,28 @@ resource "aws_iam_policy" "ssm_policy" {
     ]
 })
 }
+resource "aws_iam_role" "ssm_role" {
+  name = "ssm_role"
+
+  # Terraform's "jsonencode" function converts a
+  # Terraform expression result to valid JSON syntax.
+  assume_role_policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "sts:AssumeRole"
+            ],
+            "Principal": {
+                "Service": [
+                    "ec2.amazonaws.com"
+                ]
+            }
+        }
+    ]
+})
+resource "aws_iam_role_policy_attachment" "test-attach" {
+  role       = aws_iam_role.ssm_role.name
+  policy_arn = aws_iam_policy.ssm_policy.arn
+}
