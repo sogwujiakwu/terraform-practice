@@ -121,7 +121,11 @@ resource "aws_iam_role" "ssm_role" {
         }
     ]
 })
-resource "aws_iam_role_policy_attachment" "test-attach" {
+resource "aws_iam_role_policy_attachment" "ssm-attach" {
   role       = aws_iam_role.ssm_role.name
   policy_arn = aws_iam_policy.ssm_policy.arn
+}
+resource "aws_iam_instance_profile" "ssm_profile" {
+  name = "ssm_profile"
+  role = aws_iam_role.ssm_role.name
 }
