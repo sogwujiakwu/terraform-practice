@@ -120,11 +120,7 @@ resource "aws_iam_role" "ssm_role" {
         }
       }
     ]
-<<<<<<< HEAD
-})
-=======
   })
->>>>>>> c1a1f69 (updated iam_role.tf. and vpc.tf)
 }
 resource "aws_iam_role_policy_attachment" "ssm-attach" {
   role       = aws_iam_role.ssm_role.name
