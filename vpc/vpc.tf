@@ -23,6 +23,10 @@ resource "aws_internet_gateway_attachment" "workman-igw-attach" {
 resource "aws_eip" "workman-nat-sn-web-A-eip" {
   domain     = "vpc"
   depends_on = [aws_internet_gateway.workman-igw]
+
+  tags = {
+    Name = "workman-nat-sn-web-A-eip"
+  }
 }
 
 resource "aws_nat_gateway" "workman-sn-web-A-nat-gw" {
@@ -42,6 +46,10 @@ resource "aws_nat_gateway" "workman-sn-web-A-nat-gw" {
 resource "aws_eip" "workman-nat-sn-web-B-eip" {
   domain     = "vpc"
   depends_on = [aws_internet_gateway.workman-igw]
+
+  tags = {
+    Name = "workman-nat-sn-web-B-eip"
+  }
 }
 
 resource "aws_nat_gateway" "workman-sn-web-B-nat-gw" {
@@ -61,6 +69,9 @@ resource "aws_nat_gateway" "workman-sn-web-B-nat-gw" {
 resource "aws_eip" "workman-nat-sn-web-C-eip" {
   domain     = "vpc"
   depends_on = [aws_internet_gateway.workman-igw]
+  tags = {
+    Name = "workman-nat-sn-web-C-eip"
+  }
 }
 
 resource "aws_nat_gateway" "workman-sn-web-C-nat-gw" {
